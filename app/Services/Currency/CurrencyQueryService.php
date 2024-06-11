@@ -7,12 +7,17 @@ use App\Services\QueryService;
 
 class CurrencyQueryService extends QueryService
 {
-    public function get(array $data)
+    public function count(array $data = [])
+    {
+        return $this->countData(Currency::class, $data);
+    }
+
+    public function get(array $data = [])
     {
         return $this->getData(Currency::class, $data);
     }
 
-    public function first(array $data)
+    public function first(array $data = [])
     {
         return $this->firstData(Currency::class, $data);
     }

@@ -4,11 +4,11 @@ namespace App\Console\Commands;
 
 use App\Helpers\CurlHelper;
 use App\Helpers\XmlHelper;
-use App\Services\Currency\CurrencyCommandService;
-use App\Services\Currency\CurrencyQueryService;
+use App\Jobs\SaveCurrency;
 use Illuminate\Console\Command;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class UpdateCurrency extends Command
 {
@@ -33,14 +33,33 @@ class UpdateCurrency extends Command
 
     /**
      * Execute the console command.
+     *
      * @throws ConnectionException
+     * @throws Throwable
      */
-    public function handle(
-        CurrencyQueryService $currencyQueryService,
-        CurrencyCommandService $currencyCommandService,
-    )
-    {
+    public function handle() {
         $curl = $this->get($this->url);
-        Log::info('curl', [$curl]);
+        if ($curl->successful()) {
+            $xmlReader = $this->parseString($curl->body());
+            $values = $xmlReader->values();
+            if (
+                array_key_exists('Valuta', $values)
+                && array_key_exists('Item', $values['Valuta'])
+            ) {
+                foreach ($values['Valuta']['Item'] as $key => $value) {
+                    $attr = $xmlReader->element('Item.' . $key)->sole()
+                        ->getAttributes();
+                    SaveCurrency::dispatch([
+                        'currency_id' => trim($attr['ID']),
+                        'name'        => trim($value['Name']),
+                        'eng_name'    => trim($value['EngName']),
+                        'nominal'     => $value['Nominal'],
+                        'parent_code' => trim($value['ParentCode']),
+                    ]);
+                }
+            }
+        } else {
+            Log::error($curl->body());
+        }
     }
 }

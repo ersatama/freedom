@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('currencies', function (Blueprint $table) {
+        Schema::create('exchanges', function (Blueprint $table) {
             $table->id();
-            $table->string('currency_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('eng_name')->nullable();
+            $table->string('valute_id')->nullable();
+            $table->string('num_code')->nullable();
+            $table->string('char_code')->nullable();
             $table->unsignedBigInteger('nominal')->nullable();
-            $table->string('parent_code')->nullable();
+            $table->string('name')->nullable();
+            $table->float('value', 53)->nullable();
+            $table->float('vunit_rate', 53)->nullable();
+            $table->date('date')->useCurrent();
             $table->timestamps();
             $table->softDeletes();
+            $table->index('valute_id');
         });
     }
 
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('currencies');
+        Schema::dropIfExists('exchanges');
     }
 };

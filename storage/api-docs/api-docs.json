@@ -1,0 +1,309 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Freedom Technologies test project",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Local API Server"
+        }
+    ],
+    "paths": {
+        "/api/v1/currency/get": {
+            "get": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Получить список валют",
+                "operationId": "currenct.get",
+                "parameters": [
+                    {
+                        "name": "trashed",
+                        "in": "query",
+                        "description": "with deleted records (with, only)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "with"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "take",
+                        "in": "query",
+                        "description": "limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 20
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "data": "..."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/currency/id/{id}": {
+            "get": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Получить валюту по ID",
+                "operationId": "currency.firstById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "data": {
+                                            "id": 1,
+                                            "currency_id": "R01010",
+                                            "name": "Австралийский доллар",
+                                            "eng_name": "Australian Dollar",
+                                            "nominal": "1",
+                                            "parent_code": "R01010    ",
+                                            "created_at": "2024-06-10T20:36:39.000000Z",
+                                            "updated_at": "2024-06-10T20:36:39.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "message": "Not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/exchange/get": {
+            "get": {
+                "tags": [
+                    "Exchange"
+                ],
+                "summary": "Получить список курса валют",
+                "operationId": "exchange.get",
+                "parameters": [
+                    {
+                        "name": "trashed",
+                        "in": "query",
+                        "description": "with deleted records (with, only)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "with"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "take",
+                        "in": "query",
+                        "description": "limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 20
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "data": "..."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/exchange/id/{id}": {
+            "get": {
+                "tags": [
+                    "Exchange"
+                ],
+                "summary": "Получить курс валюты по ID",
+                "operationId": "exchange.firstById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "data": {
+                                            "id": 1,
+                                            "valute_id": "R01010",
+                                            "num_code": "036",
+                                            "char_code": "AUD",
+                                            "nominal": 1,
+                                            "name": "Австралийский доллар",
+                                            "value": "59,2211",
+                                            "vunit_rate": "59,2211",
+                                            "date": "2024-06-10",
+                                            "created_at": "2024-06-10T22:22:55.000000Z",
+                                            "updated_at": "2024-06-10T22:22:55.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "message": "Not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/exchange/id/{id}/{day}": {
+            "get": {
+                "tags": [
+                    "Exchange"
+                ],
+                "summary": "Получить курс валюты по ID и сравнит с курсом {day}-дней назад",
+                "operationId": "exchange.day",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "day",
+                        "in": "path",
+                        "description": "day",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "data": {
+                                            "id": 1,
+                                            "valute_id": "R01010",
+                                            "num_code": "036",
+                                            "char_code": "AUD",
+                                            "nominal": 1,
+                                            "name": "Австралийский доллар",
+                                            "value": "59,2211",
+                                            "vunit_rate": "59,2211",
+                                            "date": "2024-06-10",
+                                            "created_at": "2024-06-10T22:22:55.000000Z",
+                                            "updated_at": "2024-06-10T22:22:55.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "message": "Not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

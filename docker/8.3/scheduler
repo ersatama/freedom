@@ -1,0 +1,1 @@
+* */12 * * * root cd /var/www/html && php artisan app:update-exchange-rate >> /dev/null 2>&1
