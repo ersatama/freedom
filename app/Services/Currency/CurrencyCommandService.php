@@ -11,9 +11,4 @@ class CurrencyCommandService extends CommandService
     {
         return $this->createData(Currency::class, $data);
     }
-
-    public function update(array $data)
-    {
-        return $this->updateData(Currency::class, $data);
-    }
 }

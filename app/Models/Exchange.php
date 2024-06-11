@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\{
     Model
 };
 
-class Currency extends Model
+class Exchange extends Model
 {
     use HasFactory;
 
@@ -22,14 +22,24 @@ class Currency extends Model
         static::addGlobalScope(new Trashed());
     }
 
-    protected $table = 'currencies';
+    protected $table = 'exchanges';
+    protected $appends
+        = [
+            'value_diff',
+            'value_old',
+            'vunit_rate_diff',
+            'vunit_rate_old',
+        ];
 
     protected $fillable
         = [
-            'currency_id',
-            'name',
-            'eng_name',
+            'valute_id',
+            'num_code',
+            'char_code',
             'nominal',
-            'parent_code',
+            'name',
+            'value',
+            'vunit_rate',
+            'date',
         ];
 }

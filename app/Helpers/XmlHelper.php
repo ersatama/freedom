@@ -17,4 +17,12 @@ trait XmlHelper
         $file = $xmlRequest->file('file');
         return XmlReader::fromFile($file);
     }
+
+    /**
+     * @throws Throwable
+     */
+    public function parseString($xml): XmlReader
+    {
+        return XmlReader::fromString($xml);
+    }
 }
